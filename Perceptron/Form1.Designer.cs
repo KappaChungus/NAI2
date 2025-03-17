@@ -17,8 +17,8 @@ namespace SimpleGUI
             
             Button trainButton = buttonFactory.GetButton("train",buttonFactory.BtnBrowseFileClick);
             Button testButton = buttonFactory.GetButton("test",buttonFactory.BtnBrowseFileClick);
-            Button alphaButton = buttonFactory.GetButton("α",buttonFactory.SetButtonClick);
-            Button thetaButton = buttonFactory.GetButton("θ",buttonFactory.SetButtonClick);
+            Button alphaButton = buttonFactory.GetButton("alpha",buttonFactory.SetButtonClick);
+            Button thetaButton = buttonFactory.GetButton("theta",buttonFactory.SetButtonClick);
             startButton = buttonFactory.GetButton("start",buttonFactory.StartButtonClick);
             startButton.Enabled = false;
 

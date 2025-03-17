@@ -1,8 +1,12 @@
 ﻿using System.Diagnostics;
 namespace Perceptron;
+using System.Globalization;
+
+
 
 public class ButtonFactory
 {
+    string decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
     private double? _alpha;
     private double? _theta;
     private Dictionary<List<double>, bool>? _trainData;
@@ -70,15 +74,15 @@ public class ButtonFactory
             double? value = GetDoubleFromUser("Enter a value:");
             if (value.HasValue)
             {
-                if (name.Equals("α"))
+                if (name.Equals("alpha"))
                 {
                     _alpha = value.Value;
-                    ((Button)sender).Text= "α = "+value.Value;
+                    ((Button)sender).Text= "alpha = "+value.Value;
                 }
                 else
                 {
                     _theta = value.Value;
-                    ((Button)sender).Text= "θ = "+value.Value;
+                    ((Button)sender).Text= "theta = "+value.Value;
                 }
 
                 CheckIfReady();
@@ -133,6 +137,8 @@ public class ButtonFactory
             double? result = null;
             okButton.Click += (_, _) =>
             {
+                if(decimalSeparator==",")
+                    textBox.Text = textBox.Text.Replace('.', ',');
                 if (double.TryParse(textBox.Text, out double parsedValue))
                 {
                     result = parsedValue;
@@ -165,14 +171,19 @@ public class ButtonFactory
                 var values = new List<double>();
                 foreach (var part in parts)
                 {
+                    string formated  = part;
+                    if(decimalSeparator==",")
+                        formated = part.Replace('.', ',');
                     try
                     {
-                        values.Add(double.Parse(part));
+                        values.Add(double.Parse(formated));
                     }
-                    catch (FormatException)
+                    catch (FormatException e)
                     {
+
                         firstValue ??= part;
                         data.Add(values, part.Equals(firstValue));
+                        Console.WriteLine(e);
                     }
                 }
             }

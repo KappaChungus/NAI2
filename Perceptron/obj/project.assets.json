@@ -1,36 +1,38 @@
 {
   "version": 3,
   "targets": {
-    "net9.0-windows7.0": {}
+    "net8.0-windows7.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net9.0-windows7.0": []
+    "net8.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\riftwalker\\.nuget\\packages\\": {}
+    "C:\\Users\\s31236\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\riftwalker\\Desktop\\4 sem\\N\\Perceptron\\Perceptron\\Perceptron.csproj",
+      "projectUniqueName": "Z:\\NAI\\NAI2\\Perceptron\\Perceptron.csproj",
       "projectName": "Perceptron",
-      "projectPath": "C:\\Users\\riftwalker\\Desktop\\4 sem\\N\\Perceptron\\Perceptron\\Perceptron.csproj",
-      "packagesPath": "C:\\Users\\riftwalker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\riftwalker\\Desktop\\4 sem\\N\\Perceptron\\Perceptron\\obj\\",
+      "projectPath": "Z:\\NAI\\NAI2\\Perceptron\\Perceptron.csproj",
+      "packagesPath": "C:\\Users\\s31236\\.nuget\\packages\\",
+      "outputPath": "Z:\\NAI\\NAI2\\Perceptron\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\riftwalker\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\s31236\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net9.0-windows"
+        "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0-windows7.0": {
-          "targetAlias": "net9.0-windows",
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
           "projectReferences": {}
         }
       },
@@ -43,12 +45,11 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
-      "net9.0-windows7.0": {
-        "targetAlias": "net9.0-windows",
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
         "imports": [
           "net461",
           "net462",
@@ -68,7 +69,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\riftwalker\\.dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
