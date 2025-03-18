@@ -12,3 +12,4 @@ C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0-windo
 C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0-windows\Perceptron.pdb
 C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0-windows\Perceptron.genruntimeconfig.cache
 C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0-windows\ref\Perceptron.dll
+C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0-windows\Perceptron.sourcelink.json
