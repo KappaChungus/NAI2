@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Perceptron")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44c5d38bc26ed776d989f210fd606649bffbe6d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9303339537145f56c31c5dc1b450eb4083c8e566")]
 [assembly: System.Reflection.AssemblyProductAttribute("Perceptron")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Perceptron")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
