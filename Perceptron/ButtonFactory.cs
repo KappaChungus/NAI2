@@ -12,7 +12,8 @@ public class ButtonFactory
     private Func<Button> _getStartButton;
     private int _dimension;
     private Perceptron? _perceptron;
-    private string? _firstValue;
+    private string? _firstVectorGroupName;
+    private string? _secondVectorGroupName;
 
     public ButtonFactory(Func<Button>getStartButton)
     {
@@ -129,119 +130,127 @@ public class ButtonFactory
         
         public void TestForVectorButtonClick(object sender, EventArgs e, string name)
         {
-            Tuple<List<double>, string> vectorData = GetVectorFromUser("Enter a vector:", _dimension);
+            Tuple<List<double>, string?> vectorData = GetVectorFromUser("Enter a vector:", _dimension);
             List<double> vector = vectorData.Item1;
-            string dataName = vectorData.Item2;
+            string? dataName = vectorData.Item2;
             Debug.Assert(_perceptron != null, nameof(_perceptron) + " != null");
             _perceptron.TrainMode = false;
-            bool expectedResult = dataName == _firstValue;
+            bool expectedResult = dataName == _firstVectorGroupName;
             MessageBox.Show(_perceptron.MakeDecision(vector, expectedResult)==expectedResult?"Perceptron Succeded":"Perceptron Failed");
 
         }
 
-        private Tuple<List<double>, string> GetVectorFromUser(string prompt, int dimension, bool askForVectorName = true)
-{
-    var inputForm = new Form
-    {
-        Text = prompt,
-        Size = new Size(300, 200 + (dimension * 30)),
-        StartPosition = FormStartPosition.CenterScreen
-    };
-
-    var label = new Label
-    {
-        Text = prompt,
-        Location = new Point(10, 10),
-        AutoSize = true
-    };
-
-    TextBox[] textBoxes = new TextBox[dimension];
-    var nameLabel = new Label { Text = "Name:", Location = new Point(10, 40 + (dimension * 30)), AutoSize = true };
-    if (askForVectorName)
-        inputForm.Controls.Add(nameLabel);
-    var nameTextBox = new TextBox { Location = new Point(50, 40 + (dimension * 30)), Width = 100, TabIndex = dimension };
-    for (int i = 0; i < dimension; i++)
-    {
-        if (askForVectorName)
+        private Tuple<List<double>, string?> GetVectorFromUser(string prompt, int dimension, bool askForVectorName = true)
         {
-            var xLabel = new Label
+            var inputForm = new Form
             {
-                Text = "x" + i + ": ",
-                Location = new Point(10, 40 + (i * 30)),
+                Text = prompt,
+                Size = new Size(300, 200 + (dimension * 30)),
+                StartPosition = FormStartPosition.CenterScreen
+            };
+
+            var label = new Label
+            {
+                Text = prompt,
+                Location = new Point(10, 10),
                 AutoSize = true
             };
-            inputForm.Controls.Add(xLabel);
+
+            TextBox[] textBoxes = new TextBox[dimension];
+            var nameLabel = new Label { Text = "Name:", Location = new Point(10, 40 + (dimension * 30)), AutoSize = true };
+            if (askForVectorName)
+                inputForm.Controls.Add(nameLabel);
+            var nameComboBox = new ComboBox() { Location = new Point(60, 40 + (dimension * 30)), Width = 100, TabIndex = dimension };
+            if (askForVectorName)
+            {
+                Debug.Assert(_firstVectorGroupName != null, nameof(_firstVectorGroupName) + " != null");
+                Debug.Assert(_secondVectorGroupName != null, nameof(_secondVectorGroupName) + " != null");
+                nameComboBox.Items.Add(_firstVectorGroupName);
+                nameComboBox.Items.Add(_secondVectorGroupName);
+            }
+
+            for (int i = 0; i < dimension; i++)
+            {
+                if (askForVectorName)
+                {
+                    var xLabel = new Label
+                    {
+                        Text = "x" + i + ": ",
+                        Location = new Point(10, 40 + (i * 30)),
+                        AutoSize = true
+                    };
+                    inputForm.Controls.Add(xLabel);
+                }
+
+                textBoxes[i] = new TextBox
+                {
+                    Location = new Point(60, 40 + (i * 30)),
+                    Width = 40,
+                    TabIndex = i
+                };
+
+                textBoxes[i].KeyDown += (sender, e) =>
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        e.SuppressKeyPress = true; // Prevent beep sound
+                        int nextIndex = Array.IndexOf(textBoxes, sender) + 1;
+
+                        if (nextIndex < dimension)
+                            textBoxes[nextIndex].Focus();
+                        else if (askForVectorName)
+                            nameComboBox.Focus();
+                    }
+                };
+
+                inputForm.Controls.Add(textBoxes[i]);
+            }
+            
+            if (askForVectorName)
+                inputForm.Controls.Add(nameComboBox);
+
+            var okButton = new Button { Text = "OK", Location = new Point(10, 80 + (dimension * 30)), TabIndex = dimension + 1 };
+
+            List<double> vector = new List<double>();
+            string? vectorName = "";
+
+            okButton.Click += (_, _) =>
+            {
+                vector.Clear();
+                foreach (var textBox in textBoxes)
+                {
+                    if (double.TryParse(textBox.Text, out double parsedValue))
+                    {
+                        vector.Add(parsedValue);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter valid numbers.");
+                        return;
+                    }
+                }
+                if(askForVectorName)
+                {
+                    if (nameComboBox.SelectedItem is not null)
+                    {
+                        vectorName = nameComboBox.SelectedItem.ToString();
+                        inputForm.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a valid name.");
+                    }
+                }
+                else
+                    inputForm.Close();
+            };
+
+            inputForm.Controls.Add(label);
+            inputForm.Controls.Add(okButton);
+            inputForm.ShowDialog();
+
+            return new Tuple<List<double>, string?>(vector, vectorName);
         }
-
-        textBoxes[i] = new TextBox
-        {
-            Location = new Point(50, 40 + (i * 30)),
-            Width = 40,
-            TabIndex = i
-        };
-
-        textBoxes[i].KeyDown += (sender, e) =>
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true; // Prevent beep sound
-                int nextIndex = Array.IndexOf(textBoxes, sender) + 1;
-
-                if (nextIndex < dimension)
-                    textBoxes[nextIndex].Focus();
-                else if (askForVectorName)
-                    nameTextBox.Focus();
-            }
-        };
-
-        inputForm.Controls.Add(textBoxes[i]);
-    }
-    
-    if (askForVectorName)
-        inputForm.Controls.Add(nameTextBox);
-
-    var okButton = new Button { Text = "OK", Location = new Point(10, 80 + (dimension * 30)), TabIndex = dimension + 1 };
-
-    List<double> vector = new List<double>();
-    string vectorName = "";
-
-    okButton.Click += (_, _) =>
-    {
-        vector.Clear();
-        foreach (var textBox in textBoxes)
-        {
-            if (double.TryParse(textBox.Text, out double parsedValue))
-            {
-                vector.Add(parsedValue);
-            }
-            else
-            {
-                MessageBox.Show("Please enter valid numbers.");
-                return;
-            }
-        }
-        if(askForVectorName)
-        {
-            if (!string.IsNullOrWhiteSpace(nameTextBox.Text))
-            {
-                vectorName = nameTextBox.Text;
-                inputForm.Close();
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid name.");
-            }
-        }
-        else
-            inputForm.Close();
-    };
-
-    inputForm.Controls.Add(label);
-    inputForm.Controls.Add(okButton);
-    inputForm.ShowDialog();
-
-    return new Tuple<List<double>, string>(vector, vectorName);
-}
 
 
         
@@ -268,8 +277,15 @@ public class ButtonFactory
                     }
                     catch (FormatException)
                     {
-                        _firstValue ??= part;
-                        data.Add(values, part.Equals(_firstValue));
+                        _firstVectorGroupName ??= part;
+                        if (part == _firstVectorGroupName)
+                        {
+                            data.Add(values, true);
+                        }
+                        else if (( _secondVectorGroupName ??= part)  == _secondVectorGroupName)
+                        {
+                            data.Add(values, false);
+                        }
                     }
                 }
             }
