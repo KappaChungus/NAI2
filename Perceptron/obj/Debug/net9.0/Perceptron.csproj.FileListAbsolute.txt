@@ -1,4 +1,0 @@
-C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0\Perceptron.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0\Perceptron.AssemblyInfoInputs.cache
-C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0\Perceptron.AssemblyInfo.cs
-C:\Users\riftwalker\Desktop\4 sem\N\Perceptron\Perceptron\obj\Debug\net9.0\Perceptron.csproj.CoreCompileInputs.cache
