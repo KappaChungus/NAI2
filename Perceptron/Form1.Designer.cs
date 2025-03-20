@@ -19,14 +19,19 @@ namespace SimpleGUI
             Button testButton = buttonFactory.GetButton("test",buttonFactory.BtnBrowseFileClick);
             Button alphaButton = buttonFactory.GetButton("α",buttonFactory.SetButtonClick);
             Button thetaButton = buttonFactory.GetButton("θ",buttonFactory.SetButtonClick);
+            Button testForVectorButton = 
+                buttonFactory.GetButton("test for vector", buttonFactory.TestForVectorButtonClick);
+            testForVectorButton.Enabled = false;
             startButton = buttonFactory.GetButton("start",buttonFactory.StartButtonClick);
             startButton.Enabled = false;
+            startButton.Click += (_,_)=>testForVectorButton.Enabled = true;
 
             panel.Controls.Add(trainButton);
             panel.Controls.Add(testButton);
             panel.Controls.Add(alphaButton);
             panel.Controls.Add(thetaButton);
             panel.Controls.Add(startButton);
+            panel.Controls.Add(testForVectorButton);
 
             this.Controls.Add(panel);
             this.Text = "Simple GUI";
