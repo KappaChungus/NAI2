@@ -193,7 +193,7 @@ public class ButtonFactory
                 {
                     if (e.KeyCode == Keys.Enter)
                     {
-                        e.SuppressKeyPress = true; // Prevent beep sound
+                        e.SuppressKeyPress = true;
                         int nextIndex = Array.IndexOf(textBoxes, sender) + 1;
 
                         if (nextIndex < dimension)
