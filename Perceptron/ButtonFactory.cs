@@ -14,6 +14,7 @@ public class ButtonFactory
     private Perceptron? _perceptron;
     private string? _firstVectorGroupName;
     private string? _secondVectorGroupName;
+    char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator[0];
 
     public ButtonFactory(Func<Button>getStartButton)
     {
@@ -219,8 +220,9 @@ public class ButtonFactory
                 vector.Clear();
                 foreach (var textBox in textBoxes)
                 {
-                    if (double.TryParse(textBox.Text, out double parsedValue))
+                    if (double.TryParse(textBox.Text.Replace('.',separator), out double parsedValue))
                     {
+                        Console.WriteLine(textBox.Text.Replace('.',separator));
                         vector.Add(parsedValue);
                     }
                     else
@@ -271,9 +273,10 @@ public class ButtonFactory
                 var values = new List<double>();
                 foreach (var part in parts)
                 {
+                    string parsed = part.Replace('.',separator);
                     try
                     {
-                        values.Add(double.Parse(part));
+                        values.Add(double.Parse(parsed));
                     }
                     catch (FormatException)
                     {
